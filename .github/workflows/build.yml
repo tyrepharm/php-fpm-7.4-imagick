@@ -23,7 +23,7 @@ jobs:
       run: |
         docker buildx create --use --platform linux/amd64,linux/arm64 --name multi-platform-builder
         docker buildx inspect --bootstrap
-        docker buildx build --platform linux/amd64,linux/arm64 --pull --push -t ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:latest -f ./Dockerfile .
+        docker buildx build --platform linux/amd64,linux/arm64 --pull --push -t ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest -f ./Dockerfile .
       env:
         DOCKER_CLI_AARCH64: 1
 
@@ -31,4 +31,4 @@ jobs:
       run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.repository_owner }} --password-stdin
 
     - name: Push Docker image to GitHub Container Registry
-      run: docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository_name }}:latest
+      run: docker push ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest
